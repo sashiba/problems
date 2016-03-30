@@ -8,8 +8,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "can save user with password and email" do
-    user = User.new(password: 'test1234',
-                    email: 'something')
+    user = User.new(password: 'test1234', email: 'something')
 
     assert user.save
   end
@@ -20,13 +19,13 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 2, user.current_problems.count
   end
 
-  test "current problems and all problmes are not same thing" do
+  test "current problems are always less then all the problems" do
     user = users(:example_with_problems)
 
     assert user.problems.count >= user.current_problems.count
   end
 
-  test "current problems are if user has no problems" do
+  test "current problems are empty if user has no problems" do
     user = users(:example_without_problems)
 
     assert user.current_problems.empty?
