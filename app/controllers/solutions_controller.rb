@@ -7,12 +7,16 @@ class SolutionsController < ApplicationController
 
   def show
     @solution = problem.solutions.find(params[:id])
+
+    respond_to do |format|
+      format.json { render json: @solution }
+    end
   end
 
   def create
     @solution = problem.solutions.new(solution_params)
     if @solution.save
-      SolutionRunnerJob.perform_later(@solution)
+      CheckSolutionJob.perform_later(@solution)
       redirect_to root_path
     else
       render :new
