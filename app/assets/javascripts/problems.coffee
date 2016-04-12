@@ -10,6 +10,7 @@ jQuery ($) ->
     $.get "/problems/#{problemId}/solutions/#{solutionId}.json", (data) ->
       if data?.checked_at
         $('.solution .test_output').html(data?.test_output)
+        $('.check').html('')
       else
         callback()
 

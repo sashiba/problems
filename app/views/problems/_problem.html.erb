@@ -4,5 +4,6 @@
 <hr>
 
 <%= render problem.current_solution if problem.current_solution %>
+Is solution correct? <%= problem.current_solution.correct? %><br>
 
 <%= link_to "Submit Solution", new_problem_solution_path(problem) %>

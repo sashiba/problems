@@ -9,12 +9,16 @@ class ApplicationController < ActionController::Base
 
   def current_user
     # @current_user ||= User.find_by(id: cookies.permanent.signed[:user_id])
-    @current_user ||= User.find_by(email: 'to@example.org')
+    @current_user ||= User.find_by(id: session[:user_id])
   end
 
   private
 
   def require_login
-    redirect_to new_user_path if current_user.nil?
+    redirect_to login_path if current_user.nil?
+  end
+
+  def require_admin
+    redirect_to root_path unless current_user.admin?
   end
 end

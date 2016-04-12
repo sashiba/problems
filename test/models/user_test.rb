@@ -30,4 +30,10 @@ class UserTest < ActiveSupport::TestCase
 
     assert user.current_problems.empty?
   end
+
+  test "cant create user with same email" do
+    user = User.new(email: 'to@example.org')
+
+    assert_not user.save
+  end
 end
